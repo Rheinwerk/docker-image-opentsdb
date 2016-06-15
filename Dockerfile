@@ -22,6 +22,8 @@ RUN ./build.sh
 
 RUN apk del builddeps && rm -rf /var/cache/apk/*
 
+#Configure OpenTSDB Logging
+ADD docker/logback.xml /opt/opentsdb/opentsdb-2.2.0/src/logback.xml
 
 #Install HBase and scripts
 RUN mkdir -p /data/hbase
