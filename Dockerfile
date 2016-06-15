@@ -5,7 +5,7 @@ RUN apk --update add rsyslog bash openjdk7 make wget
 RUN apk --update add --virtual builddeps build-base autoconf automake git python
 
 ENV TSDB_VERSION 2.2.0
-ENV HBASE_VERSION 1.1.4
+ENV HBASE_VERSION 1.1.5
 ENV JAVA_HOME /usr/lib/jvm/java-1.7-openjdk
 ENV PATH $PATH:/usr/lib/jvm/java-1.7-openjdk/bin/
 
@@ -37,6 +37,9 @@ ADD docker/hbase-site.xml /opt/hbase/conf/
 ADD docker/start_opentsdb.sh /opt/bin/
 ADD docker/create_tsdb_tables.sh /opt/bin/
 ADD docker/start_hbase.sh /opt/bin/
+
+#Configure OpenTSDB Logging
+ADD docker/logback.xml /opt/opentsdb/opentsdb-2.2.0/src/logback.xml
 
 RUN for i in /opt/bin/start_hbase.sh /opt/bin/start_opentsdb.sh /opt/bin/create_tsdb_tables.sh; \
     do \
