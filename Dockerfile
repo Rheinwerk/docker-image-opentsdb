@@ -20,6 +20,7 @@ RUN wget --no-check-certificate -O v${TSDB_VERSION}.zip https://github.com/OpenT
 WORKDIR /opt/opentsdb/opentsdb-${TSDB_VERSION}
 ADD docker/opentsdb.conf /opt/opentsdb/opentsdb-${TSDB_VERSION}/src/
 ADD docker/logback.xml /opt/opentsdb/opentsdb-${TSDB_VERSION}/src/
+RUN ln -s /opt/opentsdb/opentsdb-${TSDB_VERSION}/src/opentsdb.conf /etc/opentsdb.conf
 RUN ./build.sh
 RUN sed -i -E "s|-classpath \"|-classpath \"/opt/opentsdb/opentsdb-${TSDB_VERSION}/src:|" /opt/opentsdb/opentsdb-${TSDB_VERSION}/build/tsdb
 
