@@ -18,8 +18,8 @@ RUN wget --no-check-certificate -O v${TSDB_VERSION}.zip https://github.com/OpenT
     unzip v${TSDB_VERSION}.zip && \
     rm v${TSDB_VERSION}.zip
 WORKDIR /opt/opentsdb/opentsdb-${TSDB_VERSION}
-RUN echo "tsd.storage.fix_duplicates=true" >> src/opentsdb.conf
-RUN echo "tsd.storage.max_tags=12" >> src/opentsdb.conf
+ADD docker/opentsdb.conf /opt/opentsdb/opentsdb-${TSDB_VERSION}/src/
+ADD docker/logback.xml /opt/opentsdb/opentsdb-${TSDB_VERSION}/src/
 RUN ./build.sh
 RUN sed -i -E "s|-classpath \"|-classpath \"/opt/opentsdb/opentsdb-${TSDB_VERSION}/src:|" /opt/opentsdb/opentsdb-${TSDB_VERSION}/build/tsdb
 
